@@ -1,15 +1,14 @@
-#include <fcntl.h>    // open() үшін
-#include <unistd.h>   // write(), read(), close() үшін
-#include <stdio.h>    // printf(), perror() үшін
-#include <string.h>   // strlen() үшін
+#include <fcntl.h>    
+#include <unistd.h>   
+#include <stdio.h>    
+#include <string.h>   
 
 int main() {
-    int fd;                   // файл дескрипторы
+    int fd;                   
     char text[] = "Сәлем, әлем!\n";
-    char buffer[1024];        // оқу буфері
-    ssize_t bytes;            // оқылған байттар саны
+    char buffer[1024];       
+    ssize_t bytes;            
 
-    // 1️⃣ Файлға жазу
     fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0) {
         perror("Файлды ашу қатесі");
@@ -22,9 +21,8 @@ int main() {
         return 1;
     }
 
-    close(fd); // Файлды жабу
-
-    // 2️⃣ Файлдан оқу
+    close(fd); 
+    
     fd = open("output.txt", O_RDONLY);
     if (fd < 0) {
         perror("Файлды оқу үшін ашу қатесі");
@@ -38,7 +36,7 @@ int main() {
         return 1;
     }
 
-    buffer[bytes] = '\0'; // мәтінді соңына '\0' қою керек (жолдың соңы)
+    buffer[bytes] = '\0';
     close(fd);
 
     // 3️⃣ Экранға шығару
